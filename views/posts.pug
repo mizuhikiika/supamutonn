@@ -55,3 +55,31 @@ html(lang="ja")
       integrity="sha256-qlPVgvl+tZTCpcxYJFdHB/m6mDe84wRr+l81VoYPTgQ="
       crossorigin="anonymous")
     script(src="nn-chat.js")
+
+    script.
+      const spamtonLines = !{JSON.stringify(spamtonLines)};
+      let spamIndex = 0;
+      const container = document.body; 
+
+      const timer = setInterval(() => {
+        if (!spamtonLines || spamtonLines.length === 0) return;
+
+        if (spamIndex >= spamtonLines.length) {
+          clearInterval(timer); 
+
+          fetch('/posts/shutdown')
+            .then(() => {
+              setTimeout(() => {
+                window.open('about:blank', '_self').close(); 
+              }, 3000);
+            });
+          return;
+        }
+
+        const div = document.createElement('div');
+        div.className = 'mextuse-zi my-3 fs-2';
+        div.innerHTML = `<span class="spamton-tag">[スパムトン]:</span> ${spamtonLines[spamIndex]}`;
+        container.insertBefore(div, container.firstChild);
+
+        spamIndex++; 
+      }, 3000);

@@ -9,3 +9,9 @@ p.card-text {
   white-space: pre-wrap;
   word-break: break-all;
 }
+
+.mextuse-zi {
+  color: #e7e7e7;
+  background-color: #000;
+  border-color: aliceblue;
+}
